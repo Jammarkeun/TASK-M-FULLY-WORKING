@@ -1,0 +1,61 @@
+DATABASE
+
+taskm
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    theme VARCHAR(50) DEFAULT 'light',
+    timezone VARCHAR(50) DEFAULT 'UTC',
+    email_notifications TINYINT(1) DEFAULT 1,
+    web_notifications TINYINT(1) DEFAULT 1,
+    profile_image VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create tasks table
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    STATUS ENUM('pending', 'completed') NOT NULL DEFAULT 'pending',
+    due_date DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+ALTER TABLE tasks
+ADD COLUMN priority ENUM('low', 'medium', 'high') DEFAULT 'medium' AFTER description,
+ADD COLUMN category VARCHAR(255) DEFAULT 'uncategorized' AFTER priority;
+
+-- Create attachments table
+CREATE TABLE attachments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task_id INT,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
+);
+
+-- Create notifications table
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    message TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create statistics table
+CREATE TABLE statistics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    total_tasks INT DEFAULT 0,
+    completed_tasks INT DEFAULT 0,
+    pending_tasks INT DEFAULT 0,
+    overdue_tasks INT DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

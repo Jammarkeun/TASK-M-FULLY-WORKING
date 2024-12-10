@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <link href="../assets/css/profile.css" rel="stylesheet">
+    <link href="../assets/css/notifications.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles for the profile image and button */
+        .profile-image {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px; /* Add space below the image holder */
+        }
+
+        #profileImage {
+            width: 150px; /* Set width */
+            height: 150px; /* Set height */
+            border-radius: 50%; /* Make it circular */
+            object-fit: cover; /* Ensure the image covers the circle */
+            border: 2px solid #ccc; /* Optional: add a border */
+        }
+
+        .upload-image {
+            margin-top: 10px; /* Space between image and button */
+            padding: 10px 93px; /* Button padding */
+            background-color: #ff6b00; /* Button color */
+            color: white; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .upload-image:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo mb-4">
+                    <h3 class="text-white">Task Manager</h3>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="maincontent.html">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a class="nav-link" href="tasks.html">
+                        <i class="fas fa-tasks"></i> Tasks
+                    </a>
+                    <a class="nav-link active" href="create-task.html">
+                        <i class="fas fa-plus"></i> New Task
+                    </a>
+                    <a class="nav-link" href="profile.html">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a class="nav-link" href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Notification Bell -->
+            <div class="notification-bell-container">
+                <div class="notification-bell" id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationCount">0</span>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <h1>User Profile</h1>
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img id="profileImage" src="/placeholder.svg" alt="Profile Picture">
+                        <button class="upload-image">Change Picture</button>
+                    </div>
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="usernameInput">Full Name</label>
+                            <input type="text" id="usernameInput" name="fullname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email</label>
+                            <input type="email" id="emailInput" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="themeSelect">Theme</label>
+                            <select id="themeSelect" name="theme">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezoneSelect">Timezone</label>
+                            <select id="timezoneSelect" name="timezone"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="emailNotifications" name="email_notifications">
+                                Receive Email Notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="webNotifications" name="web_notifications">
+                                Receive Web Notifications
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+
+</html>
